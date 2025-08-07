@@ -1,8 +1,9 @@
 import express from "express";
 import { Router } from "express";
-import { UserModel } from "../db.js";
+import { UserModel, ContentModel } from "../db.js";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
+import { userMiddleware } from "../middlewares/userMiddleware.js";
 dotenv.config();
 const jSecret = process.env.jSecret!;
 const userRouter = Router();
@@ -41,8 +42,30 @@ userRouter.post("/signin", async (req, res) => {
     });
   }
 });
-userRouter.post("/content", (req, res) => {});
-userRouter.get("/showcontent", (req, res) => {});
+userRouter.post("/content", userMiddleware, (req, res) => {
+  const title = req.body.title;
+  const link = req.body.link;
+  ContentModel.create({
+    title,
+    link,
+    tags: [],
+    //@ts-ignore
+    userId: req.userId,
+  });
+  res.json({
+    message: "Content added",
+  });
+});
+userRouter.get("/showcontent", userMiddleware, async (req, res) => {
+  //@ts-ignore
+  const userId = req.userId;
+  const content = await ContentModel.find({
+    userId,
+  }).populate("userId");
+  res.json({
+    content,
+  });
+});
 userRouter.delete("/deletecontent", (req, res) => {});
 userRouter.get("/:shareLink", (req, res) => {});
 export { userRouter };

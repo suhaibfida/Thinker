@@ -66,6 +66,16 @@ userRouter.get("/showcontent", userMiddleware, async (req, res) => {
     content,
   });
 });
-userRouter.delete("/deletecontent", (req, res) => {});
+userRouter.delete("/deletecontent", async (req, res) => {
+  const contentId = req.body.contentId;
+  await ContentModel.deleteMany({
+    contentId,
+    //@ts-ignore
+    userId: req.userId,
+  });
+  res.json({
+    message: "data deleted Successfully",
+  });
+});
 userRouter.get("/:shareLink", (req, res) => {});
 export { userRouter };

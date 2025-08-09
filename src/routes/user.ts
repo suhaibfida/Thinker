@@ -42,7 +42,7 @@ userRouter.post("/signin", async (req, res) => {
     });
   }
 });
-userRouter.post("/content", userMiddleware, (req, res) => {
+userRouter.post("/user/content", userMiddleware, (req, res) => {
   const title = req.body.title;
   const link = req.body.link;
   ContentModel.create({
@@ -56,7 +56,7 @@ userRouter.post("/content", userMiddleware, (req, res) => {
     message: "Content added",
   });
 });
-userRouter.get("/showcontent", userMiddleware, async (req, res) => {
+userRouter.get("/user/showcontent", userMiddleware, async (req, res) => {
   //@ts-ignore
   const userId = req.userId;
   const content = await ContentModel.find({
@@ -66,7 +66,7 @@ userRouter.get("/showcontent", userMiddleware, async (req, res) => {
     content,
   });
 });
-userRouter.delete("/deletecontent", async (req, res) => {
+userRouter.delete("/user/deletecontent", async (req, res) => {
   const contentId = req.body.contentId;
   await ContentModel.deleteMany({
     contentId,
@@ -77,5 +77,5 @@ userRouter.delete("/deletecontent", async (req, res) => {
     message: "data deleted Successfully",
   });
 });
-userRouter.get("/:shareLink", (req, res) => {});
+userRouter.get("/user/:shareLink", (req, res) => {});
 export { userRouter };

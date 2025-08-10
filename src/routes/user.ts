@@ -110,5 +110,41 @@ userRouter.get("/user/share", userMiddleware, async (req, res) => {
       message: "shareable link is updated",
     });
   }
+  9;
 });
+userRouter.get("/user/:shareLink", async (req, res) => {
+  const hash = req.params.shareLink;
+  console.log(hash);
+  const link = await LinkModel.findOne({
+    hash: hash,
+  });
+  //@ts-ignore
+
+  if (link) {
+    const content = await ContentModel.findOne({
+      //@ts-ignore
+      userId: link.userId,
+    }); //@ts-ignore
+
+    const user = await UserModel.findOne({
+      //@ts-ignore
+      _id: link.userId,
+    });
+    if (!user) {
+      res.status(404).json({
+        message: "user not found",
+      });
+      return;
+    }
+    res.json({
+      username: user.username,
+      content: content,
+    });
+  } else {
+    res.json({
+      message: "incorrect link",
+    });
+  }
+});
+
 export { userRouter };

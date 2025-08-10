@@ -62,12 +62,12 @@ userRouter.get("/user/showcontent", userMiddleware, async (req, res) => {
   const userId = req.userId;
   const content = await ContentModel.find({
     userId,
-  }).populate("userId");
+  }).populate("userId", "username");
   res.json({
     content,
   });
 });
-userRouter.delete("/user/deletecontent", async (req, res) => {
+userRouter.delete("/user/deletecontent", userMiddleware, async (req, res) => {
   const contentId = req.body.contentId;
   await ContentModel.deleteMany({
     contentId,
@@ -78,22 +78,37 @@ userRouter.delete("/user/deletecontent", async (req, res) => {
     message: "data deleted Successfully",
   });
 });
-userRouter.get("/user/:shareLink", userMiddleware, (req, res) => {
+userRouter.get("/user/share", userMiddleware, async (req, res) => {
   const share = req.body.share;
-  if (share) {
-    LinkModel.create({
+  const existingUser = await LinkModel.findOne({
+    //@ts-ignore
+    userId: req.userId,
+  });
+  if (existingUser) {
+    res.json({
+      message: "sharable link already exists",
+
       //@ts-ignore
-      userId: req.userId,
-      hash: shareLink(10),
+      hash: existingUser.hash,
     });
   } else {
-    LinkModel.deleteOne({
-      //@ts-ignore
-      userId: req.userId,
+    const hash = shareLink(20);
+    if (share) {
+      await LinkModel.create({
+        //@ts-ignore
+        userId: req.userId,
+        hash: hash,
+      });
+    } else {
+      await LinkModel.deleteOne({
+        //@ts-ignore
+        userId: req.userId,
+      });
+    }
+    res.json({
+      hash,
+      message: "shareable link is updated",
     });
   }
-  res.json({
-    message: "sharable link is updated",
-  });
 });
 export { userRouter };

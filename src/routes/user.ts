@@ -1,9 +1,10 @@
 import express from "express";
 import { Router } from "express";
-import { UserModel, ContentModel } from "../db.js";
+import { UserModel, ContentModel, LinkModel } from "../db.js";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import { userMiddleware } from "../middlewares/userMiddleware.js";
+import { shareLink } from "../shareLink.js";
 dotenv.config();
 const jSecret = process.env.jSecret!;
 const userRouter = Router();
@@ -77,5 +78,22 @@ userRouter.delete("/user/deletecontent", async (req, res) => {
     message: "data deleted Successfully",
   });
 });
-userRouter.get("/user/:shareLink", (req, res) => {});
+userRouter.get("/user/:shareLink", userMiddleware, (req, res) => {
+  const share = req.body.share;
+  if (share) {
+    LinkModel.create({
+      //@ts-ignore
+      userId: req.userId,
+      hash: shareLink(10),
+    });
+  } else {
+    LinkModel.deleteOne({
+      //@ts-ignore
+      userId: req.userId,
+    });
+  }
+  res.json({
+    message: "sharable link is updated",
+  });
+});
 export { userRouter };

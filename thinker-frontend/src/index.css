@@ -1,0 +1,5 @@
+@import "tailwindcss";
+@theme {
+  --color-pinki-800: #c88d94;
+  --color-pinki-200: #f1dde0;
+}

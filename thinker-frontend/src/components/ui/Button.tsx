@@ -10,7 +10,7 @@ const variant = {
   primary: "bg-pink-800 text-white",
   secondary: "bg-pinki-200 text-pink-800",
 };
-const defaults = "px-4 py-2 rounded-md flex items-center ";
+const defaults = "px-4 py-2 rounded-md flex items-center m-3 border ";
 export const Button = (props: buttonProps) => {
   return (
     <button className={` ${variant[props.variant]} ${defaults}`}>

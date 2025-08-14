@@ -1,4 +1,6 @@
 import { Shareicon } from "../icons/Shareicon";
+import { Notesicon } from "../icons/Notesicon";
+import { Deleteicon } from "../icons/Deleteicon";
 interface props {
   variant: "youtube" | "twitter";
   title: string;
@@ -6,18 +8,18 @@ interface props {
 }
 export const Card = (props: props) => {
   return (
-    <div className="border-2 shadow-2xs border-gray-300 rounded-lg max-w-2xs  items-center justify-between -mt-5 m-3">
+    <div className="border-2 shadow-2xs border-gray-300 rounded-lg max-w-2xs  items-center justify-between -mt-5 m-3 bg-gray-100">
       <div className="flex">
         <div className="flex items-center px-5 p-3 text-gray-500">
-          <Shareicon />
+          <Notesicon />
           <div className="pl-2 text-black">{props.title}</div>
         </div>
 
-        <div className="flex items-center pt-3 p-3 text-gray-500">
+        <div className="flex justify-end pt-3 pl-14 items-center text-gray-500">
           <Shareicon />
           <div className="pl-3">
             <a href={props.link} target="_blank">
-              <Shareicon />
+              <Deleteicon />
             </a>
           </div>
         </div>

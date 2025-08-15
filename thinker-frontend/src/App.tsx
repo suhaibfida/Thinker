@@ -37,8 +37,8 @@ function App() {
         <div className="flex">
           <Card
             variant="youtube"
-            title="America"
-            link="https://www.youtube.com/watch?v=uOG3MiFax7E"
+            title="Web dev"
+            link="https://www.youtube.com/watch?v=TBIjgBVFjVI"
           />
 
           <Card
@@ -47,9 +47,14 @@ function App() {
             link="https://twitter.com/sama/status/1955438916645130740"
           />
           <Card
+            variant="twitter"
+            title="Zach"
+            link="https://twitter.com/zachxbt/status/1955613912201896113"
+          />
+          <Card
             variant="youtube"
-            title="Project Ideas"
-            link="https://youtu.be/e3CVv6cqoUQ?feature=shared"
+            title="LLM's"
+            link="https://www.youtube.com/watch?v=7xTGNNLPyMI"
           />
         </div>
       </div>

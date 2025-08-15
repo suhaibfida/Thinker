@@ -8,7 +8,7 @@ interface props {
 }
 export const Card = (props: props) => {
   return (
-    <div className="border-2 shadow-2xs border-gray-300 rounded-lg max-w-sm  items-center justify-between -mt-5 m-3 bg-gray-100">
+    <div className="border-2 shadow-2xs border-gray-300 rounded-lg max-w-sm max-h-142  items-center justify-between -mt-5 m-3 bg-gray-100">
       <div className="flex justify-between pr-2">
         <div className="flex items-center px-5 p-3 text-gray-500">
           <Notesicon />

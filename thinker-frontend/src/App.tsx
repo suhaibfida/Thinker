@@ -4,12 +4,14 @@ import { Plusicon } from "./components/icons/Plusicon";
 import { Shareicon } from "./components/icons/Shareicon";
 import { Card } from "./components/ui/Card";
 import { ContentModal } from "./components/ui/ContentModal";
+import { Sidebar } from "./components/ui/Sidebar";
 import { useState } from "react";
 function App() {
   const [open, setModal] = useState(false);
   return (
-    <>
-      <div className=" h-screen bg-gray-200">
+    <div className="flex">
+      <Sidebar />
+      <div className=" h-screen w-screen bg-gray-200">
         <ContentModal
           open={open}
           onClose={() => {
@@ -51,7 +53,7 @@ function App() {
           />
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

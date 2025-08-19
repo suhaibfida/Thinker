@@ -12,7 +12,7 @@ const variant = {
   secondary: "bg-pinki-200 text-pink-800",
 };
 const defaults =
-  "px-4 py-2 rounded-md flex items-center m-3 border cursor-pointer";
+  "px-7 py-2 rounded-md flex items-center m-3 border cursor-pointer";
 export const Button = (props: buttonProps) => {
   return (
     <button

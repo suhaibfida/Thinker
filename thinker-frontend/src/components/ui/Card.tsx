@@ -4,6 +4,7 @@ import { Deleteicon } from "../icons/Deleteicon";
 interface props {
   variant: "youtube" | "twitter";
   title: string;
+  tag: string;
   link: string;
 }
 export const Card = (props: props) => {

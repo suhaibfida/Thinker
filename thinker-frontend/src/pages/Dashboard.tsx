@@ -4,15 +4,51 @@ import { Shareicon } from "../components/icons/Shareicon";
 import { Card } from "../components/ui/Card";
 import { ContentModal } from "../components/ui/ContentModal";
 import { Sidebar } from "../components/ui/Sidebar";
+import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { URL } from "./../config";
 export const Dashboard = () => {
+  const navigate = useNavigate();
   const [open, setModal] = useState(false);
-  const [reloadData, setReloadData] = useState(true);
+  const [reloadData, setReloadData] = useState<any[]>([]);
+  const [data, setData] = useState();
 
   useEffect(() => {
     fetchingData();
   }, [reloadData]);
-
+  async function shareLink() {
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        alert("Please login first");
+        navigate("/");
+        return;
+      }
+      const res = await fetch(`${URL}/api/v1/user/content`, {
+        method: "GET",
+      });
+      const jsonData = await res.json();
+      setData(jsonData.data);
+      if (res.ok) {
+        const encodedData = encodeURIComponent(JSON.stringify(data));
+        const shareLink = `${URL}/share/${jsonData.userId}${token}?data=${encodedData}`;
+        navigator.clipboard
+          .writeText(shareLink)
+          .then(() => {
+            alert("link copied");
+          })
+          .catch(() => {
+            alert(
+              `failed to copy link to clipboard.here is the link ${shareLink}`
+            );
+          });
+      } else {
+        alert("something went wrong");
+      }
+    } catch (err) {
+      console.log("error while sending data");
+    }
+  }
   function fetchingData() {
     try {
       if (!localStorage.getItem("token")) {
@@ -24,6 +60,7 @@ export const Dashboard = () => {
       alert("error while getting data");
     }
   }
+
   return (
     <div className="flex">
       <Sidebar />
@@ -43,11 +80,12 @@ export const Dashboard = () => {
             text="Add Content"
             startIcon={<Plusicon />}
           ></Button>
+
           <Button
-            onClick={shareLink()}
             variant="secondary"
             text="Share "
             startIcon={<Shareicon />}
+            onClick={shareLink}
           ></Button>
         </div>
         <div className="font-medium text-3xl m-10">All Notes</div>

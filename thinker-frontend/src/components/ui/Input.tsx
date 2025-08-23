@@ -1,5 +1,7 @@
 interface props {
   placeholder: string;
+  onChange?: any;
+  value?: any;
 }
 
 export function Input({ placeholder }: props) {

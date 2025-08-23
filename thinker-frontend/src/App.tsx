@@ -1,5 +1,6 @@
 import { Dashboard } from "./pages/Dashboard";
-import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import { Sharedpage } from "./pages/Sharedpage";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Signup } from "./pages/auth/Signup";
 import { Login } from "./pages/auth/Login";
 
@@ -9,13 +10,16 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/homepage" element={<Dashboard />} />
+          <Route path="/sharedpage " element={<Sharedpage />} />
         </Routes>
       </BrowserRouter>
-      <Signup />
-      <Login />
-      <Dashboard />
+      {/* <Signup />
+      <Login /> */}
+      {/* <Dashboard /> */}
+      hello
     </>
   );
 }

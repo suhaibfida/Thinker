@@ -1,5 +1,5 @@
 import { Card } from "../components/ui/Card";
-import { useParams, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 export const Sharedpage = () => {

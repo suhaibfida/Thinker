@@ -7,6 +7,7 @@ import { Sidebar } from "../components/ui/Sidebar";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { URL } from "./../config";
+import { Sharedpage } from "./Sharedpage";
 export const Dashboard = () => {
   const navigate = useNavigate();
   const [open, setModal] = useState(false);
@@ -89,29 +90,7 @@ export const Dashboard = () => {
           ></Button>
         </div>
         <div className="font-medium text-3xl m-10">All Notes</div>
-        <div className="flex">
-          <Card
-            variant="youtube"
-            title="Web dev"
-            link="https://www.youtube.com/watch?v=TBIjgBVFjVI"
-          />
-
-          <Card
-            variant="twitter"
-            title="Sam Altman"
-            link="https://twitter.com/sama/status/1955438916645130740"
-          />
-          <Card
-            variant="twitter"
-            title="Zach"
-            link="https://twitter.com/zachxbt/status/1955613912201896113"
-          />
-          <Card
-            variant="youtube"
-            title="LLM's"
-            link="https://www.youtube.com/watch?v=7xTGNNLPyMI"
-          />
-        </div>
+        <div className="flex"></div>
       </div>
     </div>
   );

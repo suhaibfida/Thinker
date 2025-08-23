@@ -1,13 +1,14 @@
 import { Input } from "../../components/ui/Input";
 import { Button } from "../../components/ui/Button";
 import { URL } from "../../config";
+import { useState } from "react";
 
 export const Signup = () => {
-  async function handleSubmit(e: any) {
-    const det = e.currentTarget;
-    const username = det.username.value;
-    const password = det.password.value;
-
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  async function handleSubmit(e: React.FormEvent) {
+    console.log("hello");
+    e.preventDefault();
     if (!username || !password) {
       alert("Username and password fields are empty");
       return;
@@ -17,8 +18,9 @@ export const Signup = () => {
       password,
     };
     try {
-      const res = await fetch(`${URL}/signup `, {
+      const res = await fetch(`${URL}/signup`, {
         method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
       if (res.ok) {
@@ -47,8 +49,16 @@ export const Signup = () => {
             </div>
             <form onSubmit={handleSubmit}>
               <div>
-                <Input placeholder={"Username"} />
-                <Input placeholder={"Password"} />
+                <Input
+                  placeholder={"Username"}
+                  value={username}
+                  onChange={(e: any) => setUsername(e.target.value)}
+                />
+                <Input
+                  placeholder={"Password"}
+                  value={password}
+                  onChange={(e: any) => setPassword(e.target.value)}
+                />
 
                 <div className="pl-24">
                   <Button variant={"primary"} text={"SignUp"} />
